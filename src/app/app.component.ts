@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, mapTo, startWith, tap } from 'rxjs/operators';
 import { AppSandboxService } from './sandbox/app-sandbox.service';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'rbo-root',
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._resize$ = Observable.fromEvent(window, 'resize')
+    this._resize$ = fromEvent(window, 'resize')
       .pipe(
         debounceTime(200),
         mapTo( window.innerWidth),

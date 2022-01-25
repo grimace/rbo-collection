@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchSandboxService } from '../../sandbox/search-sandbox.service';
 import { Movie } from '../../entity/search-response.entity';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Page } from '../../entity/entities/page.entity';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -21,18 +21,18 @@ export class SearchContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    const pageNumber$ = this.activeRoute.params
-      .map(params => params.page)
-      .do(pageNumber => this.checkPageNumber(pageNumber))
-      .filter(pageNumber => pageNumber)
-      .map(pageNumber => +pageNumber)
-      .distinctUntilChanged()
-      .do(pageNumber => this.searchSandbox.pageNumber$.next(pageNumber));
-
-    this.movies$ = this.searchSandbox.movies$;
-    this.page$ = Observable.combineLatest(pageNumber$, this.searchSandbox.page$)
-      .do(([ pageNumber, page ]) => this.checkPageNumber(pageNumber, page))
-      .map(([ pageNumber, page ]) => page);
+    // const pageNumber$ = this.activeRoute.params
+    //   .map(params => params.page)
+    //   .do(pageNumber => this.checkPageNumber(pageNumber))
+    //   .filter(pageNumber => pageNumber)
+    //   .map(pageNumber => +pageNumber)
+    //   .distinctUntilChanged()
+    //   .do(pageNumber => this.searchSandbox.pageNumber$.next(pageNumber));
+    //
+    // this.movies$ = this.searchSandbox.movies$;
+    // this.page$ = Observable.combineLatest(pageNumber$, this.searchSandbox.page$)
+    //   .do(([ pageNumber, page ]) => this.checkPageNumber(pageNumber, page))
+    //   .map(([ pageNumber, page ]) => page);
 
 
   }
